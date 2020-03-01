@@ -1,0 +1,10 @@
+mkdir -p bin
+mkdir -p obj
+mkdir -p obj/Release
+cd ../bin && \
+ls && \
+ls ../project && \
+cmake ../project
+          -DGTK3_DIR:PATH=../project/.circleci/  
+          -DCMAKE_INSTALL_PREFIX=/home/build/pioneers-install/
+make --directory=./obj/Release --makefile=../../Makefile build_flags="-O2 -fomit-frame-pointer" program_name=../../bin/application

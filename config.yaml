@@ -1,0 +1,18 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: mrapplejuice/pioneers-3d-build-container:latest
+    steps:
+     - checkout
+     - run: "bash -c 'cp -vr ../ogre-1.12.2/build/Dependencies/lib/. ../libs/ogre/lib'"
+     - run: "wget -O /tmp/pioneers-15.5.tar.gz https://sourceforge.net/projects/pio/files/Source/pioneers-15.5.tar.gz/download"
+     - run: "cd ../ && tar xfvz /tmp/pioneers-15.5.tar.gz"
+     - run: 'bash -c "cd ../pioneers-15.5 && autoreconf && ./configure --prefix=/home/build/pioneers-install/ && make -j4 install"'
+     - run: 'cd ../ && mv project p-temp && mv pioneers-15.5 project && cp -vr p-temp/. project/.'
+     - run: 'cd ../ && mkdir bin && pwd'
+     - run: 'cd ../bin && ls && ls ../project/ && /opt/cmake/bin/cmake ../project/
+          -DGTK3_DIR:PATH=../project/.circleci/ 
+          -DOGRE_DIR=/home/build/libs/ogre/lib/OGRE/cmake/ 
+          -DCMAKE_INSTALL_PREFIX=/home/build/pioneers-install/'
+- run: 'cd ../bin && make -j4'

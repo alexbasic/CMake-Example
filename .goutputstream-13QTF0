@@ -1,0 +1,13 @@
+CFLAGS = `pkg-config --cflags --libs gtk+-3.0`
+
+all: empty-window
+
+empty-window: empty-window.o
+	gcc empty-window.o -o empty-window
+   
+empty-window.o:
+	gcc src/empty.c $(CFLAGS)
+
+clean :   
+	rm -f bin/*
+	rm -f obj/*
