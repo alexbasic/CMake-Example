@@ -4,20 +4,17 @@ project(project1 VERSION 1.0)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/../cmake/")
+
+FIND_PACKAGE(PkgConfig REQUIRED)
+PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
+
+include_directories(${GTK3_INCLUDE_DIRS})
+include_directories("${PROJECT_SOURCE_DIR}")
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/inc
         ${PROJECT_SOURCE_DIR}/src
 )
-
-find_package(GTK3 REQUIRED COMPONENTS gtk)
-include_directories(${GTK3_INCLUDE_DIR})
-include_directories("${PROJECT_SOURCE_DIR}")
-
-if(NOT GTK3_FOUND)
-	message(FATAL_ERROR "GTK not found")
-endif()
 
 file(GLOB SRC_LIST
         "${PROJECT_SOURCE_DIR}/src/inc/*.h"
