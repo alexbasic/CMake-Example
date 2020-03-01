@@ -1,8 +1,5 @@
-mkdir -p bin
-mkdir -p bin/Debug
-mkdir -p obj
-mkdir -p obj/Debug
 mkdir -p build
+mkdir -p build/Debug
 cd build
 cmake .. -D
 #make --directory=./obj/Debug --makefile=../../Makefile build_flags="-O0 -g3 -D_DEBUG" program_name=../../bin/application_debug
