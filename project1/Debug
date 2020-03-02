@@ -1,5 +1,8 @@
 mkdir -p build
-mkdir -p build/Debug
 cd build
-cmake .. -D
+cmake .. -DCMAKE_BUILD_TYPE=Debug
+
 #make --directory=./obj/Debug --makefile=../../Makefile build_flags="-O0 -g3 -D_DEBUG" program_name=../../bin/application_debug
+
+cd ..
+
